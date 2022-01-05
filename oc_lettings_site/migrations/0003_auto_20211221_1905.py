@@ -9,18 +9,26 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('oc_lettings_site', '0002_auto_20211221_1809'),
+        ("oc_lettings_site", "0002_auto_20211221_1809"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='letting',
-            name='address',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='oc_lettings_site.Address'),
+            model_name="letting",
+            name="address",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="oc_lettings_site.Address",
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='+', to=settings.AUTH_USER_MODEL),
+            model_name="profile",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
