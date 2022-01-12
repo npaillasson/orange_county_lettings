@@ -23,10 +23,10 @@ jobs:
             pip install --no-cache-dir --user -r requirements.txt && pip freeze
       - run:
           name: Run tests
-          command: pytest
+          command: python -m pytest
       - run:
           name: Run flake8
-          command: flake8
+          command: python -m flake8
       - run: | 
           echo "$CIRCLE_SHA1"
 
