@@ -5,7 +5,7 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 orbs:
-    heroku: cicleci/heroku@1.2.6
+    heroku: circleci/heroku@1.2.6
 
 jobs:
   test-linting:
