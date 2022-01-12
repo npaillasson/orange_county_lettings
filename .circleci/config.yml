@@ -21,14 +21,14 @@ jobs:
           name: Install packages and dependencies
           command: |
             sudo pip install --no-cache-dir -r requirements.txt
-        - run:
-            name: Run tests
-            command: pytest
-        - run:
-            name: Run flake8
-            command: flake8
-          -run: |
-            echo "$CIRCLE_SHA1"
+      - run:
+          name: Run tests
+          command: pytest
+      - run:
+          name: Run flake8
+          command: flake8
+      - run: | 
+          echo "$CIRCLE_SHA1"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
