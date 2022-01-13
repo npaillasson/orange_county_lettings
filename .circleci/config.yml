@@ -31,6 +31,8 @@ jobs:
           echo "$CIRCLE_SHA1"
 
   push-image-to-docker-hub:
+    docker:
+      - image: python:3
     steps:
       - checkout
       - setup_remote_docker
