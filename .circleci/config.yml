@@ -30,9 +30,22 @@ jobs:
       - run: | 
           echo "$CIRCLE_SHA1"
 
+  push-image-to-docker-hub:
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+          docker_image_name = $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+          echo $docker_image_name
+          docker build -t $docker_image_name .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_ACCESS_TOKEN
+          docker push $docker_image_name
+          
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   tests-linting:
     jobs:
       - test-linting
+      - push-image-to-docker-hub
