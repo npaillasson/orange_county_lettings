@@ -38,10 +38,10 @@ jobs:
       - setup_remote_docker
       - run: |
           image_name="$DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
-          echo "$image_name"
-          docker build -t $docker_image_name .
+          echo $image_name
+          docker build -t $image_name .
           docker login -u $DOCKER_USERNAME -p $DOCKER_ACCESS_TOKEN
-          docker push $docker_image_name
+          docker push $image_name
           
 
 # Invoke jobs via workflows
