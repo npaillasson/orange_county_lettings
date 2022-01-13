@@ -40,7 +40,7 @@ jobs:
           image_name="$DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
           echo $image_name
           docker build -t $image_name .
-          docker login -u $DOCKER_USERNAME -p $DOCKER_ACCESS_TOKEN
+          docker login -u $DOCKER_USERNAME --password $DOCKER_ACCESS_TOKEN
           docker push $image_name
           
 
