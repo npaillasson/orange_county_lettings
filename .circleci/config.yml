@@ -27,8 +27,13 @@ jobs:
       - run:
           name: Run flake8
           command: python -m flake8
-      - run: | 
-          echo "$CIRCLE_SHA1"
+
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git
 
   push-image-to-docker-hub:
     docker:
