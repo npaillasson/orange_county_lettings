@@ -126,13 +126,3 @@ if os.environ.get('ENV') == 'PRODUCTION':
         os.path.join(PROJECT_ROOT, 'static'),
     )
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-projet_racine = os.path.dirname(os.path.abspath(__file__))
-
-static_racine = os.path.join(projet_racine, 'staticfiles')
-
-    # Extra places for collectstatic to find static files.
-staticfile_dic = (
-    os.path.join(projet_racine, 'static'),)
-
-print(f"projet_racine: {projet_racine}, static_racine: {projet_racine}, staticfile_dic: {staticfile_dic}")
