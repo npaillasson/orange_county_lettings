@@ -42,11 +42,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: |
-          image_name="$DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
-          echo $image_name
-          docker build -t $image_name .
+          image_name_dev="$DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
+          image_name_prod="$image_name_dev-prod"
+          docker build -f Dockerfile -t base-image .
+          docker build -f Dockerfile_dev -t $image_name_dev .
+          docker build -f Dockerfile_prod -t $image_name_prod .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $image_name
+          docker push $image_name_dev ; docker push $image_name_prod
           
 
 # Invoke jobs via workflows

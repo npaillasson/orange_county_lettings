@@ -1,0 +1,4 @@
+FROM base-image:latest
+ENV ENV="PRODUCTION"
+RUN python manage.py collectstatic --noinput
+CMD gunicorn orange_county_project.wsgi:application --bind 0.0.0.0:$PORT
