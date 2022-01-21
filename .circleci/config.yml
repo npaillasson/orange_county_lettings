@@ -30,8 +30,6 @@ jobs:
 
   push-image-to-docker-and-heroku-registers:
     executor: heroku/default
-    docker:
-      - image: circleci/python:3
     steps:
       - checkout
       - setup_remote_docker
