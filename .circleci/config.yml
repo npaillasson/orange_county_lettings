@@ -35,6 +35,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - heroku/install
       - run: |
           image_name="$DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
           docker build -t $image_name .
