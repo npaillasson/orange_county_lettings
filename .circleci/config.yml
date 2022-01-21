@@ -29,6 +29,7 @@ jobs:
           command: python -m flake8
 
   push-image-to-docker-and-heroku-registers:
+    executor: heroku/default
     docker:
       - image: circleci/python:3
     steps:
