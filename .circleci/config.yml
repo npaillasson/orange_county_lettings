@@ -39,7 +39,7 @@ jobs:
           docker build -t $image_name .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push $image_name
-          docker tag $image_name registry.heroku.com/"$HEROKU_APP"/web
+          docker tag $image_name registry.heroku.com/"$HEROKU_APP_NAME"/web
           docker push registry.heroku.com/"$HEROKU_APP_NAME"/web
 
   deploy:
