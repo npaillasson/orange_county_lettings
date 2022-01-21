@@ -28,14 +28,7 @@ jobs:
           name: Run flake8
           command: python -m flake8
 
-  deploy:
-    executor: heroku/default
-    steps:
-      - checkout
-      - heroku/install
-      - heroku/deploy-via-git
-
-  push-image-to-docker-hub:
+  push-image-to-docker-and-heroku-registers:
     docker:
       - image: circleci/python:3
     steps:
@@ -46,6 +39,14 @@ jobs:
           docker build -t $image_name .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push $image_name
+          push-docker-image
+
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git
           
 
 # Invoke jobs via workflows
@@ -54,4 +55,4 @@ workflows:
   tests-linting:
     jobs:
       - test-linting
-      - push-image-to-docker-hub
+      - push-image-to-docker-and-heroku-registers
