@@ -5,4 +5,6 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+RUN python manage.py collectstatic --noinput
+CMD ["bash", "launch_cmd.sh"]
 
