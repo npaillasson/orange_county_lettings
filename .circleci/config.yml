@@ -48,7 +48,7 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - heroku/deploy-via-git
+      - heroku/release-docker-image
           
 
 # Invoke jobs via workflows
@@ -58,3 +58,4 @@ workflows:
     jobs:
       - test-linting
       - push-image-to-docker-and-heroku-registers
+      - deploy
