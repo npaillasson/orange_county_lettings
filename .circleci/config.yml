@@ -43,7 +43,7 @@ jobs:
           docker tag $image_name registry.heroku.com/"$HEROKU_APP_NAME"/web
           docker push registry.heroku.com/"$HEROKU_APP_NAME"/web
 
-  deploy:
+  deploy-to-heroku:
     executor: heroku/default
     steps:
       - checkout
@@ -55,8 +55,18 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  tests-linting:
+  tests-linting-build-deploy:
     jobs:
       - test-linting
-      - push-image-to-docker-and-heroku-registers
-      - deploy
+      - push-image-to-docker-and-heroku-registers:
+          requires:
+            - test-linting
+          filters:
+            branches:
+              only: master
+      - deploy-to-heroku:
+          requires:
+            - push-image-to-docker-and-heroku-registers
+          filters:
+            branches:
+              only: master
