@@ -1,5 +1,10 @@
 ## Résumé
 
+![circleCI-badge](https://img.shields.io/circleci/build/github/npaillasson/orange_county_lettings/master?token=c8a305dbec80d4bfbb68c6da7fce237fe5933620)
+![docker-image-size](https://img.shields.io/docker/image-size/npaillasson/orange_county_lettings?label=docker%20image%20size&sort=date)
+![docker-image-tag](https://img.shields.io/docker/v/npaillasson/orange_county_lettings?label=latest%20docker%20image%20tag&sort=date)
+![last-commit](https://img.shields.io/github/last-commit/npaillasson/orange_county_lettings)
+
 Site web d'Orange County Lettings
 
 ## Développement local

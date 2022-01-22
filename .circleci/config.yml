@@ -37,7 +37,7 @@ jobs:
       - run: |
           image_name="$DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1"
           docker build -t $image_name .
-          echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          echo $DOCKERHUB_ACCESS_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin
           docker push $image_name
           heroku container:login
           docker tag $image_name registry.heroku.com/"$HEROKU_APP_NAME"/web
