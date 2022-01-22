@@ -10,5 +10,6 @@ from django.shortcuts import render
 def index(request):
     return render(request, "oc_lettings_site/index.html")
 
+
 def sentry_error(request):
-    division_by_zero = 1/0
+    print(1/0)
