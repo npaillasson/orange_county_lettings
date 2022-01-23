@@ -7,6 +7,12 @@
 
 Site web d'Orange County Lettings
 
+##technologies
+
+Le site est développé à l'aide du framework [django](https://docs.djangoproject.com/fr/4.0/).
+Les tests sont réalisés à l'aide du framework de test [pytest](https://docs.pytest.org/en/6.2.x/) et
+la vérification du respect de la PEP8 est éfféctué à l'aide de [flake8](https://flake8.pycqa.org/en/latest/).
+
 ## Développement local
 
 ### Prérequis
@@ -64,9 +70,9 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Ouvrir une session shell `sqlite3`
 - Se connecter à la base de données `.open oc-lettings-site.sqlite3`
 - Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
+- Afficher les colonnes dans le tableau des profils, `pragma table_info(profiles_profile);`
 - Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
+  profiles_profile where favorite_city like 'B%';`
 - `.quit` pour quitter
 
 #### Panel d'administration
@@ -80,3 +86,15 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### déploiement
+
+Pour le développement et le deploiement en continue (CI/CD) nous utilisons [CircleCI](https://circleci.com/docs/) 
+dans le cadre de ce projet. Le site est quand à lui hébérgé sur le service [heroku](https://devcenter.heroku.com/categories/reference)
+et surveillé par [sentry](https://docs.sentry.io/)
+
+Les détails de la pipeline sont disponible dans `.cicleci/config.yml`.
+
+Lors d'un **git push** depuis la branch master du projet, les tests et le linter sont lancé, en cas de réussite, 
+une image docker du projet est créer et est envoyé sur le registry `npaillasson/oc`
+
