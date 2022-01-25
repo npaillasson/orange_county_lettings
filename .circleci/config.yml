@@ -42,7 +42,6 @@ jobs:
           heroku container:login
           docker tag $image_name registry.heroku.com/"$HEROKU_APP_NAME"/web
           docker push registry.heroku.com/"$HEROKU_APP_NAME"/web
-          docker logout
 
   deploy-to-heroku:
     executor: heroku/default
