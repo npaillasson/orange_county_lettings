@@ -7,7 +7,7 @@
 
 Site web d'Orange County Lettings
 
-##technologies
+## Technologies
 
 Le site est développé à l'aide du framework [django](https://docs.djangoproject.com/fr/4.0/).
 Les tests sont réalisés à l'aide du framework de test [pytest](https://docs.pytest.org/en/6.2.x/) et
