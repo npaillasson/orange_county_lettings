@@ -91,48 +91,48 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 #### CI/CD
 
-Pour le développement et le deploiement en continue (CI/CD) nous utilisons [CircleCI](https://circleci.com/docs/) 
-dans le cadre de ce projet. Le site est quand à lui hébérgé sur le service [heroku](https://devcenter.heroku.com/categories/reference)
+Pour le développement et le déploiement en continu (CI/CD) nous utilisons [CircleCI](https://circleci.com/docs/) 
+dans le cadre de ce projet. Le site est quant à lui hébergé sur le service [heroku](https://devcenter.heroku.com/categories/reference)
 et surveillé par [sentry](https://docs.sentry.io/).
 
 Les détails de la configuration de la pipeline sont disponibles dans `.cicleci/config.yml`.
 
 ##### Push depuis la branche master
 
-Lors d'un **git push** depuis la branch master du projet, les tests et le linter sont lancé, en cas de réussite, 
-une image docker du projet est crée et est envoyé sur le registre dockerhub `npaillasson/orange-county-lettings` et sur
-le registre heroku. Après une conteneurisation et un envoie des images réussie sur les registres, le site est ensuite déployé sur heroku.
+Lors d'un **git push** depuis la branche master du projet, les tests et le linter sont lancés, en cas de réussite, 
+une image docker du projet est créée et est envoyée sur le registre dockerhub `npaillasson/orange-county-lettings` et sur
+le registre heroku. Après une conteneurisation et un envoi des images réussi sur les registres, le site est ensuite déployé sur Heroku.
 
 ##### Push depuis une autre branche que la branche master
 
-Lors d'un **git push** depuis une autre branche que la branche master, seul les tests et flake8 sont exécutés.
+Lors d'un **git push** depuis une autre branche que la branche master, seuls les tests et flake8 sont exécutés.
 
 ### Docker
 
-Pour installer docker vous pouvez vous référer à [la documentation](https://www.docker.com/). 
-Il est possible de récupérer l'images docker de l'application à l'aide de la commande `docker pull npaillasson/orange_county_lettings:tagname`.
-les images sont tagués avec le hash du comite correspondant à leurs création.
+Pour installer docker, vous pouvez vous référer à [la documentation](https://www.docker.com/). 
+Il est possible de récupérer l'image docker de l'application à l'aide de la commande `docker pull npaillasson/orange_county_lettings:tagname`.
+Les images sont taguées avec le hash du comite correspondant à leur création.
 
 #### exécution de l'image docker en local
 
-Le déploiement du site surHeroku et un developpeur en local, utilise la même image docker pour lancer le site.
-La version du site éxécuté dépend des variables d'environement transmises au conteneur lors de sont lancement.
+Le déploiement du site sur Heroku et un developpeur en local utilisent la même image docker pour lancer le site.
+La version du site éxécutée dépend des variables d'environnement transmises au conteneur lors de son lancement.
 
-Pour lancer le site en version de developpement, utilisez la commande suivante:
+Pour lancer le site en version de développement, utilisez la commande suivante :
 ```
 % docker run -d -p 8000:8000 npaillasson/orange_county_lettings:tagname 
 ```
 
 Si vous ne disposez pas de l'image en local, docker ira la télécharger sur le registre.
 
-Pour lancer le site en version de production (même en local), utilisez la commande suivante:
+Pour lancer le site en version de production (même en local), utilisez la commande suivante :
 ```
 % docker run -it -e ENV="PRODUCTION" -e PORT=8000 -e SECRET_KEY=<chaine de caractère servant de clé secrète> -p 8000:8000 npaillasson/orange_county_lettings:d09c975e9c338bad523f5b24f7a09cfc6703082d
 ```
 
-ici on transmet des variables d'environements au conteneur grâce à l'argument "**-e**",
-ces variable seront utilisés pour lancer la version "production" du site. Les trois variables sont obligatoires,
-en cas d'absence de l'une des ces variable, le site de production ne se lancera pas.
+Ici, on transmet des variables d'environnement au conteneur grâce à l'argument "**-e**",
+ces variables seront utilisés pour lancer la version "production" du site. Les trois variables sont obligatoires,
+en cas d'absence de l'une de ces variables, le site de production ne se lancera pas.
 
 La selection de la version du site à lancer se fait grâce au script shell 'launch_cmd.sh' qui est appelé par l'instruction **CMD** 
 au lancement du conteneur.
@@ -146,10 +146,10 @@ au lancement du conteneur.
 
 #### Configuration
 
-Configurer des variables d'environnement liées au projet:
+Configurer des variables d'environnement liées au projet :
   * DOCKER_HUB_ACCESS_TOKEN : contient le [token d'acces docker](https://docs.docker.com/docker-hub/access-tokens/) permettant de push l'image sur le registre.
   * DOCKER_HUB_USERNAME : contient le nom d'utilisateur du compte docker.
-  * HEROKU_API_KEY : contient le permettant de push l'image sur l'application heroku (pour créer un nouveau token d'accès depuis heroku CLI utiliser `heroku authorizations:create`)
+  * HEROKU_API_KEY : contient la clé API permettant de push l'image sur l'application heroku (pour créer un nouveau token d'accès depuis heroku CLI utiliser `heroku authorizations:create`)
   * HEROKU_APP_NAME : contient le nom de l'application (actuellement **oc-lettings-np**)
 
 ### Configuration de HEROKU
@@ -164,10 +164,10 @@ Configurer des variables d'environnement liées au projet:
 #### Configuration
 
 Lors du déploiement, Heroku va lancer le conteneur docker avec l'image de l'application. Afin de lancer le serveur en 
-mode 'production', il est nécéssaire de configurer les variables d'environnement suivante dans heroku:
+mode 'production', il est nécessaire de configurer les variables d'environnement suivantes dans Heroku:
 * ENV : "PRODUCTION"
 * PORT : 8000
-* SECRET_KEY : Une clé secrète utilisée en production seulement, [cliquer ici](#génération-clé-secrète) pour apprendre à générer une nouvelle clé secrète. **Pour des raisons de sécurité, il ne faut pas utiliser la clé utilisée en developpement dans la mise en production. C'est elle qui est notamment utilisé pour créer les [tokens CSRF](https://docs.djangoproject.com/fr/4.0/ref/csrf/)**.
+* SECRET_KEY : Une clé secrète utilisée en production seulement, [cliquer ici](#génération-clé-secrète) pour apprendre à générer une nouvelle clé secrète. **Pour des raisons de sécurité, il ne faut pas utiliser la clé utilisée en développement dans la mise en production. C'est elle qui est notamment utilisée pour créer les [tokens CSRF](https://docs.djangoproject.com/fr/4.0/ref/csrf/)**.
 * SENTRY_DSN : Le [DSN sentry](https://docs.sentry.io/product/sentry-basics/dsn-explainer/) permettant de suivre les problèmes de l'application sur sentry
 
 Pour configurer une variable d'environnement depuis heroku CLI, il faut utiliser la commande suivante `$ heroku config:set <variable_name>=<value>`.
@@ -176,7 +176,7 @@ Lors de la mise en production, l'adresse de l'application correspond à "https:/
 
 #### Génération clé secrète
 
-dans une shell python:
+Dans une shell python :
 ```
 >>> import random, string
 >>> "".join([random.choice(string.printable) for _ in range(24)])
